@@ -49,11 +49,11 @@ pip install -r requirements.txt
 Go to:
 https://platform.openai.com/
 
-###2. Generate API Key
+### 2. Generate API Key
 Go to API Keys section
 Click Create new secret key
 Copy your key (you won’t see it again)
-###3. Set environment variable (Mac/Linux)
+### 3. Set environment variable (Mac/Linux)
 ```
 export OPENAI_API_KEY="your-api-key-here"
 ```
@@ -65,7 +65,7 @@ echo 'export OPENAI_API_KEY="your-api-key-here"' >> ~/.zshrc
 source ~/.zshrc
 ```
 
-#▶️ How to Run
+# ▶️ How to Run
 Basic usage
 ```
 python cli.py examples/before.py
@@ -75,6 +75,38 @@ With custom output file
 ```
 python cli.py examples/before.py -o output/result.py
 ```
+📁 Output Naming Convention
+
+By default, generated files follow a configurable naming convention.
+```
+<prefix>_<original_filename>
+```
+Example
+
+Input file:
+```
+examples/before.php
+```
+
+Output file:
+```
+output/after_before.php
+```
+⚙️ Configuration
+
+The prefix can be customized in config/settings.py:
+```
+OUTPUT_PREFIX = "after"
+```
+
+You can change it to:
+
+```
+OUTPUT_PREFIX = "refactored"
+```
+Result:
+
+output/refactored_before.php
 
 📁 Project Structure
 ```
@@ -106,33 +138,33 @@ clean-code-bot/
 ├── requirements.txt
 └── README.md
 ```
-##🧪 Example Workflow
-###Input
+## 🧪 Example Workflow
+### Input
 ```
 def calc(a,b):
     return a+b
 ```
 
-###Output
+### Output
 - 🔍 Code Analysis
 - 🛠 Improvement Plan
 - 💻 Refactored Code (colored CLI output)
 - 💾 Saved automatically in /output
 ---
-###⚙️ Requirements
+### ⚙️ Requirements
 - click
 - openai
 - rich
 - black
 - python-dotenv
 
-###🔐 Security Features
-File validation (allowed extensions only)
-Input sanitization
-Prompt injection detection
-Safe LLM interaction layer
+### 🔐 Security Features
+- File validation (allowed extensions only)
+- Input sanitization
+- Prompt injection detection
+- Safe LLM interaction layer
 ---
-###🧠 Architecture Flow
+### 🧠 Architecture Flow
 ```
 Input Code
    ↓

@@ -52,3 +52,19 @@ def test_format_fallback_returns_original_code_on_formatter_error(monkeypatch):
     processor = CodeProcessor(llm=object())
     raw = "print('no format')"
     assert processor._format(raw, "python") == raw
+
+
+def test_resolve_output_path_uses_prefix_and_output_dir(monkeypatch):
+    monkeypatch.setattr(processor_module, "OUTPUT_DIR", "/tmp/output")
+    monkeypatch.setattr(processor_module, "OUTPUT_PREFIX", "after")
+
+    processor = CodeProcessor(llm=object())
+    path = processor._resolve_output_path("examples/before.py", override=None)
+
+    assert path == "/tmp/output/after_before.py"
+
+
+def test_resolve_output_path_prioritizes_override():
+    processor = CodeProcessor(llm=object())
+    custom = processor._resolve_output_path("examples/before.py", override="custom.py")
+    assert custom == "custom.py"

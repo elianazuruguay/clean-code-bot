@@ -7,7 +7,7 @@ from core.prompt_engine import PromptEngine
 from core.language_detector import detect_language
 from core.formatter import format_code
 from ui.console import print_analysis, print_plan, print_code
-from config.settings import OUTPUT_DIR
+from config.settings import OUTPUT_PREFIX, OUTPUT_DIR
 
 
 class CodeProcessor:
@@ -80,7 +80,9 @@ class CodeProcessor:
             return override
 
         filename = os.path.basename(file_path)
-        return os.path.join(OUTPUT_DIR, filename)
+        name, ext = os.path.splitext(filename)
+        new_filename = f"{OUTPUT_PREFIX}_{name}{ext}"
+        return os.path.join(OUTPUT_DIR, new_filename)
 
     def _save(self, path: str, content: str) -> None:
         os.makedirs(os.path.dirname(path), exist_ok=True)
