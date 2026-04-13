@@ -1,0 +1,7 @@
+
+openai
+click
+python-dotenv
+black
+isort
+pytest
